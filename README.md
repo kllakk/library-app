@@ -7,6 +7,9 @@
 - cd laradock
 - docker-compose up -d nginx mysql phpmyadmin redis workspace
 - docker exec laradock_workspace_1 composer install
+- docker exec laradock_workspace_1 php artisan migrate
+- docker exec laradock_workspace_1 php artisan db:seed
+- docker exec laradock_workspace_1 php artisan test
 
 ## Web-сервер
 
