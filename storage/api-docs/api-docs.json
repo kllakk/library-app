@@ -1,0 +1,33 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Library OpenApi Documentation",
+        "description": "Library OpenApi description",
+        "contact": {
+            "email": "petrovsa83@mail.ru"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8087/api",
+            "description": "Library API Server"
+        }
+    ],
+    "paths": {
+        "/": {}
+    },
+    "tags": [
+        {
+            "name": "Library",
+            "description": "API Endpoints of Library"
+        }
+    ],
+    "security": [
+        []
+    ]
+}
