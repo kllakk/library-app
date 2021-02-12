@@ -10,7 +10,12 @@
 - docker exec laradock_workspace_1 php artisan migrate
 - docker exec laradock_workspace_1 php artisan db:seed
 - docker exec laradock_workspace_1 php artisan test
+- docker exec laradock_workspace_1 php artisan l5-swagger:generate
 
 ## Web-сервер
 
 - http://localhost:8087
+
+## Open Api
+
+- http://localhost:8087/api/documentation
