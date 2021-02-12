@@ -10,6 +10,16 @@ use Illuminate\Http\Request;
 class AuthorController extends Controller
 {
     /**
+     * Create a new AuthorController instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -4,10 +4,23 @@ namespace Tests\Feature;
 
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BookTest extends TestCase
 {
+    use DatabaseTransactions;
+
+    private $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->user = User::factory()->create();
+    }
+
     /**
      * A books test example.
      *
@@ -16,7 +29,7 @@ class BookTest extends TestCase
     public function testBooksTest()
     {
         $count = Book::count();
-        $response = $this->getJson('/api/books');
+        $response = $this->actingAs($this->user, 'api')->getJson('/api/books');
         $response->assertStatus(200)->assertJsonStructure([
             'data' => ['*' => ['id', 'name']],
         ])->assertJsonCount($count, 'data');
@@ -24,7 +37,7 @@ class BookTest extends TestCase
 
     public function testBookTest()
     {
-        $response = $this->getJson('/api/books/1');
+        $response = $this->actingAs($this->user, 'api')->getJson('/api/books/1');
         $response->assertStatus(200)->assertJsonStructure([
             'data' => ['id', 'name', 'authors' => ['*' => ['id', 'name']]],
         ]);
@@ -34,7 +47,7 @@ class BookTest extends TestCase
     {
         $authorId = 1;
         $count = Author::find($authorId)->books()->count();
-        $response = $this->getJson("/api/books/author/$authorId");
+        $response = $this->actingAs($this->user, 'api')->getJson("/api/books/author/$authorId");
         $response->assertStatus(200)->assertJsonStructure([
             'data' => ['*' => ['id', 'name']],
         ])->assertJsonCount($count, 'data');
@@ -47,7 +60,7 @@ class BookTest extends TestCase
             'author_id' => 1
         ];
 
-        $this->json('POST', '/api/books', $payload, [])
+        $this->actingAs($this->user, 'api')->postJson('/api/books', $payload, [])
             ->assertStatus(201)->assertJsonStructure([
                 'data' => ['id', 'name', 'authors' => ['*' => ['id', 'name']]],
             ])->assertJson([
